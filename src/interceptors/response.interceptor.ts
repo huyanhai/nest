@@ -1,6 +1,7 @@
 import {
   CallHandler,
   ExecutionContext,
+  HttpStatus,
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
@@ -14,19 +15,15 @@ export class ResponseInterceptor implements NestInterceptor {
   ): Observable<any> | Promise<Observable<any>> {
     return next.handle().pipe(
       map((nextData) => {
-        const { data, message } = nextData;
+        const { data = null, code, message } = nextData;
+
         return {
           data,
           success: true,
-          code: 0,
+          code: code || HttpStatus.OK,
           message,
         };
       }),
-      // catchError((err) => {
-      //   console.log('err', err);
-
-      //   return of('I', 'II', 'III', 'IV', 'V', err);
-      // }),
     );
   }
 }

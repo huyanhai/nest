@@ -11,6 +11,7 @@ export class HttpException implements ExceptionFilter {
       code: status,
       message: exception.message,
       data: null,
+      success: false,
     });
   }
 }

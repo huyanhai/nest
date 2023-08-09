@@ -5,6 +5,8 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { CatDto } from './dto/cat.dto';
 
+import { genResponse } from '../../common/response';
+
 @Injectable()
 export class CatService {
   // private readonly cats: Cat[] = [];
@@ -18,9 +20,9 @@ export class CatService {
     const createdCat = new this.cats(cat);
     const result = await createdCat.save();
     if (result) {
-      return '成功';
+      return genResponse(null, '创建成功');
     }
-    return '失败';
+    return genResponse(null, '创建失败');
   }
 
   findAll(): Promise<Cat[]> {
@@ -30,22 +32,19 @@ export class CatService {
   async findOne(id: string) {
     const cat = await this.cats.findById(id);
     if (cat) {
-      return {
+      return genResponse({
         name: cat.name,
         age: cat.age,
-      };
+      });
     }
-    return [];
+    return genResponse(null);
   }
 
   async remove(id: string) {
     const result = await this.cats.findByIdAndRemove(id);
     if (result) {
-      return null;
+      return genResponse(null, '删除成功');
     }
-    return {
-      data: null,
-      message: '删除失败',
-    };
+    return genResponse(null, '删除失败');
   }
 }

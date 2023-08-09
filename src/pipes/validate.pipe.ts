@@ -10,8 +10,6 @@ import { validate } from 'class-validator';
 @Injectable()
 export class ValidatorPipe implements PipeTransform {
   async transform(value: any, { metatype }: ArgumentMetadata) {
-    console.log('pip');
-
     if (!metatype || !this.toValidate(metatype)) {
       return value;
     }
