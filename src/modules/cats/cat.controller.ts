@@ -13,7 +13,7 @@ export class CatController {
   constructor(private readonly catService: CatService) {}
 
   @Post('/create')
-  create(@Body() body: CatDto): Promise<Cat> {
+  create(@Body() body: CatDto): Promise<string> {
     return this.catService.create(body);
   }
 
