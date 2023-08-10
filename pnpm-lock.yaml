@@ -26,6 +26,9 @@ dependencies:
   mongodb:
     specifier: ^5.7.0
     version: 5.7.0
+  mongoose:
+    specifier: ^7.4.2
+    version: 7.4.2
   reflect-metadata:
     specifier: ^0.1.13
     version: 0.1.13

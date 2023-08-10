@@ -6,6 +6,7 @@ import {
   NestInterceptor,
 } from '@nestjs/common';
 import { Observable, map } from 'rxjs';
+import { LogType, genLog } from 'src/common/response';
 
 @Injectable()
 export class ResponseInterceptor implements NestInterceptor {
@@ -15,14 +16,16 @@ export class ResponseInterceptor implements NestInterceptor {
   ): Observable<any> | Promise<Observable<any>> {
     return next.handle().pipe(
       map((nextData) => {
+        const { method, url } = context.switchToHttp().getRequest();
         const { data = null, code, message } = nextData;
-
-        return {
+        const responseData = {
           data,
           success: true,
           code: code || HttpStatus.OK,
           message,
         };
+        genLog(LogType.response, method, url, responseData);
+        return responseData;
       }),
     );
   }
