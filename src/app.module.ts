@@ -1,13 +1,16 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { CatModule } from './modules/cats/cat.module';
 import { CatController } from './modules/cats/cat.controller';
 import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { MongooseModule } from '@nestjs/mongoose';
 
+import { dbAddress } from './config/db';
+import { ShuiModule } from './modules/shui/shui.module';
+
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://127.0.0.1:27017/mongos'),
-    CatModule,
+    MongooseModule.forRoot(dbAddress),
+    // CatModule,
+    ShuiModule,
   ],
   controllers: [],
   providers: [],

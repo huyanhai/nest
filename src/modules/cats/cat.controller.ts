@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { CatService } from './cat.service';
 import { CatDto } from './dto/cat.dto';
-import { Cat } from './cat.entity';
+import { Cat } from './schemas/cat.schema';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { RolesGrard } from 'src/guards/roles.guard';
 
