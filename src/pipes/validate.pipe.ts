@@ -19,7 +19,9 @@ export class ValidatorPipe implements PipeTransform {
     const error = await validate(object);
 
     if (error.length > 0) {
-      throw new BadRequestException('参数校验失败');
+      const err = error[0].constraints;
+      const errKeys = Object.keys(err);
+      throw new BadRequestException(`${err[errKeys[0]] || '参数校验失败'}`);
     }
     return value;
   }
